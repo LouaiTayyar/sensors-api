@@ -1,4 +1,3 @@
-import re
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import status
@@ -85,6 +84,8 @@ class SensorsAPIView(APIView):
         if location:
             sensor.location = location
             sensor.save()
+        
+        return Response({'message':'Sensor updated'}, status = status.HTTP_200_OK)
 
     def delete(self,request):
         
@@ -183,6 +184,8 @@ class ReadingsAPIView(APIView):
         if time:
             reading.time = time
             reading.save()
+
+        return Response({'message':'Reading updated'},status = status.HTTP_200_OK)
 
     def delete(self,request):
         

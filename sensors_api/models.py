@@ -3,7 +3,8 @@ from django.db import models
 
 # Create your models here.
 
-SENSORTYPE = [
+TYPE = [
+    ('', 'Type'),
     ("Temperature", "Temperature"),
     ("Humidity", "Humidity"),
     ("Acoustic", "Acoustic")
@@ -11,7 +12,7 @@ SENSORTYPE = [
 
 class Sensors(models.Model):
     sensor_id = models.AutoField(primary_key = True)
-    type = models.CharField(max_length = 50,choices=SENSORTYPE)
+    type = models.CharField(max_length = 50,choices=TYPE)
     vendor_name = models.CharField(max_length = 50)
     vendor_email = models.EmailField(max_length = 255)
     description = models.TextField(max_length = 500)
