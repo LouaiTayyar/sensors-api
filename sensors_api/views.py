@@ -104,12 +104,17 @@ class ReadingsAPIView(APIView):
 
     def get(self,request):
         
-        reading_id = request.query_params.get('reading_id',None)
+        sensor_type = request.query_params.get('sensor_type',None)
+        sensor_location = request.query_params.get('sensor_location',None)
+        time = request.query_params.get('time',None)
+        readings = Readings.objects.all()
 
-        if reading_id:
-            readings = Readings.objects.filter(reading_id = reading_id)
-        else:
-            readings = Readings.objects.all()
+        if sensor_type:
+            readings = readings.filter(sensor__type = sensor_type)
+        if sensor_location:
+            readings = readings.filter(sensor__location = sensor_location)
+        if time:
+            readings = readings.filter(time = time)
 
         if readings:
             reading_serializer = self.serializer(readings, many = True)
@@ -120,8 +125,8 @@ class ReadingsAPIView(APIView):
     def post(self,request):
     
         reading_id = request.data.get('reading_id',None)
-        sensor = request.data.get('sensor',None)
-        reading_type = request.data.get('reading_type',None)
+        sensor_id = request.data.get('sensor',None)
+        type = request.data.get('type',None)
         value = request.data.get('value',None)
         date = request.data.get('date',None)
         description = request.data.get('description',None)
@@ -129,8 +134,8 @@ class ReadingsAPIView(APIView):
 
         post_data = {
             'reading_id': reading_id,
-            'sensor': sensor,
-            'reading_type': reading_type,
+            'sensor': sensor_id,
+            'type': type,
             'value': value,
             'date': date,
             'description': description,
@@ -155,9 +160,9 @@ class ReadingsAPIView(APIView):
         if not reading:
             return Response({'message':'Reading not found'}, status = status.HTTP_404_NOT_FOUND)
         
-        sensor = request.data.get('sensor',None)
-        if sensor:
-            reading.sensor = sensor
+        sensor_id = request.data.get('sensor_id',None)
+        if sensor_id:
+            reading.sensor = Sensors.objects.get(sensor_id = sensor_id)
             reading.save()
 
         reading_type = request.data.get('reading_type',None)
