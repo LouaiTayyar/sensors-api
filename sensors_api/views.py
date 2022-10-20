@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import Sensors,Readings
 from sensors_api.serializers import SensorsSerializer, ReadingsSerializer
 
+# Sensors API view
 
 class SensorsAPIView(APIView):
     serializer = SensorsSerializer
@@ -102,8 +103,12 @@ class SensorsAPIView(APIView):
         return Response({'message':'Sensor removed'},status = status.HTTP_200_OK)
 
 
+
+# Sensor Readings API view
+
 class ReadingsAPIView(APIView):
     serializer = ReadingsSerializer
+
 
     def get(self,request):
         
@@ -118,10 +123,15 @@ class ReadingsAPIView(APIView):
             readings = readings.filter(sensor__location = sensor_location)
         if time:
             readings = readings.filter(time = time)
-
+            
         if readings:
             reading_serializer = self.serializer(readings, many = True)
-            return Response(reading_serializer.data, status = status.HTTP_200_OK)
+            extra_info = get_extra_info(readings)
+            dict = {
+                'readings' : reading_serializer.data,
+                'extra_info': extra_info
+            }
+            return Response(dict, status = status.HTTP_200_OK)
         else:
             return Response({'message':'No readings found'}, status = status.HTTP_200_OK)
 
@@ -205,3 +215,68 @@ class ReadingsAPIView(APIView):
         
         reading.delete()
         return Response({'message':'Reading removed'},status = status.HTTP_200_OK)
+
+# Helper functions
+
+def get_extra_info(readings):
+
+    values_list = []
+    extra_info = {}
+    for reading in readings:
+        value_is_number = is_float(reading.value)
+        if (value_is_number):
+            values_list.append(float(reading.value))
+    if len(values_list) != 0:
+        value_range = get_value_range(values_list)
+        mean_value = get_mean_value(values_list)
+        max_records = get_max_records(values_list)
+        min_records = get_min_records(values_list)
+        extra_info = {
+            'value_range': value_range,
+            'mean_value': mean_value,
+            'max_records': max_records,
+            'min_records': min_records,
+        }
+    return extra_info
+
+def is_float(reading_value):
+
+    try:
+        float(reading_value)
+        return True
+    except:
+        return False
+
+def get_value_range(values_list):
+
+    min_value = min(values_list)
+    max_value = max(values_list)
+    value_range = (min_value,max_value)
+
+    return value_range
+
+def get_mean_value(values_list):
+
+    mean_value = sum(values_list) / len(values_list)
+
+    return mean_value
+
+def get_max_records(values_list):
+
+    num_of_records = min(10,len(values_list))
+    values_list.sort(reverse = True)
+    max_records = []
+    for i in range(0,num_of_records):
+        max_records.append(values_list[i])
+
+    return max_records
+
+def get_min_records(values_list):
+
+    num_of_records = min(10,len(values_list))
+    values_list.sort()
+    min_records = []
+    for i in range(0,num_of_records):
+        min_records.append(values_list[i])
+
+    return min_records
