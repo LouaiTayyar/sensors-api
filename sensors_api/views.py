@@ -55,8 +55,11 @@ class SensorsAPIView(APIView):
         
         sensor_id = request.query_params.get('sensor_id',None)
 
-        sensor = Sensors.objects.get(sensor_id = sensor_id)
-
+        if sensor_id:
+            sensor = Sensors.objects.get(sensor_id = sensor_id)
+        else:
+            sensor = None
+            
         if not sensor:
             return Response({'message':'Sensor not found'}, status = status.HTTP_404_NOT_FOUND)
         
