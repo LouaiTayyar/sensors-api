@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from .models import Sensors,Readings
 from sensors_api.serializers import SensorsSerializer, ReadingsSerializer
+from rest_framework.pagination import PageNumberPagination
 
 # Sensors API view
 
@@ -20,8 +21,8 @@ class SensorsAPIView(APIView):
             sensors = Sensors.objects.all()
 
         if sensors:
-            sensor_serializer = self.serializer(sensors,many = True)
-            return Response(sensor_serializer.data, status = status.HTTP_200_OK)
+            sensors_serializer = self.serializer(sensors, many=True)
+            return Response(sensors_serializer.data, status = status.HTTP_200_OK)
         else:
             return Response({'message':'No sensors found'}, status = status.HTTP_200_OK)
 
@@ -108,6 +109,7 @@ class SensorsAPIView(APIView):
 
 class ReadingsAPIView(APIView):
     serializer = ReadingsSerializer
+    paginator = PageNumberPagination()
 
 
     def get(self,request):
@@ -125,7 +127,8 @@ class ReadingsAPIView(APIView):
             readings = readings.filter(time = time)
             
         if readings:
-            reading_serializer = self.serializer(readings, many = True)
+            result_page = self.paginator.paginate_queryset(readings, request)
+            reading_serializer = self.serializer(result_page, many=True, context={'request':request})
             extra_info = get_extra_info(readings)
             dict = {
                 'readings' : reading_serializer.data,
