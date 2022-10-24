@@ -129,10 +129,10 @@ class ReadingsAPIView(APIView):
         if readings:
             result_page = self.paginator.paginate_queryset(readings, request)
             reading_serializer = self.serializer(result_page, many=True, context={'request':request})
-            extra_info = get_extra_info(readings)
+            metrics = get_metrics(readings)
             dict = {
                 'readings' : reading_serializer.data,
-                'extra_info': extra_info
+                'metrics': metrics
             }
             return Response(dict, status = status.HTTP_200_OK)
         else:
@@ -221,7 +221,7 @@ class ReadingsAPIView(APIView):
 
 # Helper functions
 
-def get_extra_info(readings):
+def get_metrics(readings):
 
     values_list = []
     extra_info = {}
