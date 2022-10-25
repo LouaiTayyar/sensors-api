@@ -20,6 +20,23 @@ services:
     environment:
       POSTGRES_DB: "db"
       POSTGRES_HOST_AUTH_METHOD: "trust"
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    container_name: sensorsapi_jenkins
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    ports:
+      - "8080:8080"
+  sonarqube:
+    image: sonarqube
+    container_name: sensorsapi_sonarqube
+    volumes:
+      - sonarqube_data:/var/sonarqube_data
+    ports:
+      - "9000:9000"
+
 volumes:
   static:
   postgres_data:
+  jenkins_home:
+  sonarqube_data:
