@@ -45,10 +45,18 @@ test_reading_data = {
             'time': 'time'
         }
 
+sensors_url = reverse('sensors')
+sensors_detail_url = sensors_url + '?sensor_id=1'
+readings_url = reverse('readings')
+readings_detail_url = readings_url + '?reading_id=1'
+
+
+# Sensors tests
+
 class CreateSensorsTest(APITestCase):
 
     def setUp(self):
-        self.url = reverse('sensors')
+        self.url = sensors_url
         self.data = test_sensor_data
 
     def test_can_create_sensor(self):
@@ -58,9 +66,9 @@ class CreateSensorsTest(APITestCase):
 class ReadSensorsTest(APITestCase):
 
     def setUp(self):
-        self.url = reverse('sensors')
+        self.url = sensors_url
         self.sensor = create_test_sensor()
-        self.sensor_detail_url = self.url + '?sensor_id=1'
+        self.sensor_detail_url = sensors_detail_url
 
     def test_can_read_sensor_list(self):
         response = self.client.get(self.url)
@@ -74,9 +82,9 @@ class ReadSensorsTest(APITestCase):
 class UpdateSensorsTest(APITestCase):
 
     def setUp(self):
-        self.url = reverse('sensors')
+        self.url = sensors_url
         self.sensor = create_test_sensor()
-        self.sensor_detail_url = self.url + '?sensor_id=1'
+        self.sensor_detail_url = sensors_detail_url
         self.data = SensorsSerializer(self.sensor).data
         self.data.update({'type': 'Humidity Sensor'})
             
@@ -87,19 +95,21 @@ class UpdateSensorsTest(APITestCase):
 class DeleteSensorsTest(APITestCase):
 
     def setUp(self):
-        self.url = reverse('sensors')
+        self.url = sensors_url
         self.sensor = create_test_sensor()
-        self.sensor_detail_url = self.url + '?sensor_id=1'
+        self.sensor_detail_url = sensors_detail_url
             
     def test_can_delete_sensor(self):
         response = self.client.delete(self.sensor_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
+# Readings tests
+
 class CreateReadingsTest(APITestCase):
 
     def setUp(self):
-        self.url = reverse('readings')
+        self.url = readings_url
         self.sensor = create_test_sensor()
         self.data = test_reading_data
 
@@ -110,10 +120,10 @@ class CreateReadingsTest(APITestCase):
 class ReadReadingsTest(APITestCase):
 
     def setUp(self):
-        self.url = reverse('readings')
+        self.url = readings_url
         self.sensor = create_test_sensor()
         self.reading = create_test_reading(self.sensor)      
-        self.reading_detail_url = self.url + '?sensor_type=Temperature Sensor&sensor_location=location&time=12:00'
+        self.reading_detail_url = readings_url + '?sensor_type=Temperature Sensor&sensor_location=location&time=12:00'
 
     def test_can_read_reading_list(self):
         response = self.client.get(self.url)
@@ -127,10 +137,10 @@ class ReadReadingsTest(APITestCase):
 class UpdateReadingsTest(APITestCase):
 
     def setUp(self):
-        self.url = reverse('readings')
+        self.url = readings_url
         self.sensor = create_test_sensor()
         self.reading = create_test_reading(self.sensor)      
-        self.reading_detail_url = self.url + '?reading_id=1'
+        self.reading_detail_url = readings_detail_url
         self.data = ReadingsSerializer(self.reading).data
         self.data.update({'type': 'updated type'})
             
@@ -144,7 +154,7 @@ class DeleteReadingsTest(APITestCase):
         self.url = reverse('readings')
         self.sensor = create_test_sensor()
         self.reading = create_test_reading(self.sensor)      
-        self.reading_detail_url = self.url + '?reading_id=1'
+        self.reading_detail_url = readings_detail_url
             
     def test_can_delete_reading(self):
         response = self.client.delete(self.reading_detail_url)
