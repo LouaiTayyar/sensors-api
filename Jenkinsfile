@@ -1,10 +1,5 @@
 pipeline{
   agent any
-  node {
-    stage('Checkout Files') {
-      checkout scm
-    }
-  }
   stages{
     stage('API') {
       agent {
