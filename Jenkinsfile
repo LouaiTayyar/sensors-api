@@ -9,7 +9,7 @@ node {
 
     stage "Build Test"
 
-    sh "pwd"
+    sh "cd /var/jenkins_home/workspace/SensorsAPI@temp"
     sh "docker-compose up sensorsapi_api"
     echo 'Hello world!' 
           
