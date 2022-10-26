@@ -18,7 +18,6 @@ pipeline {
             dockerfile {
                 filename 'Dockerfile'
                 dir 'api'
-                label 'my-defined-label'
                 args '-v /static:/static'
             }
         }
