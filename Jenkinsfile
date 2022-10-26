@@ -12,6 +12,12 @@ pipeline {
           checkout scm
         }
       }
+      stage('Build TEST'){
+        steps {
+            sh "docker-compose up"
+            echo 'Hello world!' 
+        }
+      }
       stage('Build API'){
         agent {
             // Equivalent to "docker build -f Dockerfile.build --build-arg version=1.0.2 ./build/

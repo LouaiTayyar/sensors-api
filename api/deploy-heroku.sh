@@ -9,7 +9,7 @@
 
 
 # build our heroku-ready local Docker image
-docker build -t sensors-heroku .
+#docker build -t sensorsapi_api .
 
 # push your directory container for the web process to heroku
 heroku container:push web -a sensors-readings
