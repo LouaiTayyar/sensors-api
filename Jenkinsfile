@@ -1,24 +1,9 @@
-pipeline {
-    agent none 
-    stages {
-      stage('Hello World') {
-          steps {
-              echo 'Hello world!' 
-          }
-      }
-      stage('Checkout files'){
-        agent any
-        steps{
-          checkout scm
-        }
-      }
-      stage('Build TEST'){
-        agent any
-        steps {
-            sh "ls"
-            sh "docker-compose up sensorsapi_api"
-            echo 'Hello world!' 
-        }
-      }
-    }
+node {
+    stage "Hello World"
+
+    echo 'Hello world!' 
+
+    stage "checkout"
+
+    checkout scm
 }
