@@ -3,9 +3,7 @@ pipeline{
   stages{
     stage('Checkout Files'){
       steps{
-        node {
           checkout scm
-        }
       }
     }
     stage('API') {
