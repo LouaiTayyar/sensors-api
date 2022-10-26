@@ -9,6 +9,9 @@ pipeline{
             args '-v static:/static -p 8000:8000'
         }
       }
+      steps{
+        sh "echo hello"
+      }
     }
   }
 }
