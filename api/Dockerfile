@@ -9,4 +9,4 @@ COPY ./ /app
 WORKDIR /app
 
 COPY ./entrypoint.sh /
-ENTRYPOINT [ "sh", "/entrypoint.sh" ]
+CMD gunicorn SensorsAPI.wsgi:application --bind 0.0.0.0:$PORT
