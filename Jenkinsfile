@@ -11,7 +11,6 @@ pipeline{
         dockerfile {
             filename 'Dockerfile'
             dir 'api'
-            additionalBuildArgs  '--entrypoint='''
             args '-v static:/static -p 8000:8000'
         }
       }
