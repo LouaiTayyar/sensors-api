@@ -5,7 +5,6 @@ node {
 
     stage "Build Test"
 
-    sh "docker-compose up sensorsapi_api"
-    echo 'Hello world!' 
+    sh "docker-compose up"
           
 }
