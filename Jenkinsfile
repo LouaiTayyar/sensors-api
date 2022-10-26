@@ -1,9 +1,11 @@
 pipeline{
-  agent none
+  agent any
   stages{
     stage('Checkout Files'){
-      node {
-       checkout scm
+      steps{
+        node {
+          checkout scm
+        }
       }
     }
     stage('API') {
