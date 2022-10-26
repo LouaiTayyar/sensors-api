@@ -8,7 +8,7 @@ from .serializers import SensorsSerializer, ReadingsSerializer
 def create_test_sensor():
     sensor = Sensors.objects.create(
         sensor_id = 1,
-        type = 'Temperature Sensor',
+        sensor_type = 'Temperature Sensor',
         vendor_name = 'sample name',
         vendor_email = 'sample@email.com',
         description = 'description',
@@ -19,7 +19,7 @@ def create_test_reading(sensor):
     reading = Readings.objects.create(
     reading_id = 1,
     sensor = sensor,
-    type = 'type',
+    reading_type = 'readingtype',
     value = 'value',
     date = '2022-10-11',
     description = 'description',
@@ -29,7 +29,7 @@ def create_test_reading(sensor):
 
 test_sensor_data = {
             'sensor_id': 1,
-            'type': 'Temperature Sensor',
+            'sensor_type': 'Temperature Sensor',
             'vendor_name': 'sample name',
             'vendor_email': 'sample@email.com',
             'description': 'description',
@@ -38,7 +38,7 @@ test_sensor_data = {
 
 test_reading_data = {
             'sensor': 1,
-            'type': 'type',
+            'reading_type': 'reading_type',
             'value': 'value',
             'date': '2022-10-11',
             'description': 'description',
@@ -86,7 +86,7 @@ class UpdateSensorsTest(APITestCase):
         self.sensor = create_test_sensor()
         self.sensor_detail_url = sensors_detail_url
         self.data = SensorsSerializer(self.sensor).data
-        self.data.update({'type': 'Humidity Sensor'})
+        self.data.update({'sensor_type': 'Humidity Sensor'})
             
     def test_can_update_sensor(self):
         response = self.client.put(self.sensor_detail_url, self.data)
@@ -142,7 +142,7 @@ class UpdateReadingsTest(APITestCase):
         self.reading = create_test_reading(self.sensor)      
         self.reading_detail_url = readings_detail_url
         self.data = ReadingsSerializer(self.reading).data
-        self.data.update({'type': 'updated type'})
+        self.data.update({'reading_type': 'updated type'})
             
     def test_can_update_sensor(self):
         response = self.client.put(self.reading_detail_url, self.data)

@@ -29,7 +29,7 @@ class SensorsAPIView(APIView):
     def post(self,request):
     
         sensor_id = request.data.get('sensor_id',None)
-        type = request.data.get('type',None)
+        sensor_type = request.data.get('sensor_type',None)
         vendor_name = request.data.get('vendor_name',None)
         vendor_email = request.data.get('vendor_email',None)
         description = request.data.get('description',None)
@@ -37,7 +37,7 @@ class SensorsAPIView(APIView):
 
         post_data = {
             'sensor_id': sensor_id,
-            'type': type,
+            'sensor_type': sensor_type,
             'vendor_name': vendor_name,
             'vendor_email': vendor_email,
             'description': description,
@@ -65,9 +65,9 @@ class SensorsAPIView(APIView):
         if not sensor:
             return Response({'message':'Sensor not found'}, status = status.HTTP_404_NOT_FOUND)
         
-        type = request.data.get('type', None)
-        if type:
-            sensor.type = type
+        sensor_type = request.data.get('sensor_type', None)
+        if sensor_type:
+            sensor.sensor_type = sensor_type
             sensor.save()
 
         vendor_name = request.data.get('vendor_name',None)
@@ -120,7 +120,7 @@ class ReadingsAPIView(APIView):
         readings = Readings.objects.all()
 
         if sensor_type:
-            readings = readings.filter(sensor__type = sensor_type)
+            readings = readings.filter(sensor__sensor_type = sensor_type)
         if sensor_location:
             readings = readings.filter(sensor__location = sensor_location)
         if time:
@@ -130,11 +130,11 @@ class ReadingsAPIView(APIView):
             result_page = self.paginator.paginate_queryset(readings, request)
             reading_serializer = self.serializer(result_page, many=True, context={'request':request})
             metrics = get_metrics(readings)
-            dict = {
+            data_output = {
                 'readings' : reading_serializer.data,
                 'metrics': metrics
             }
-            return Response(dict, status = status.HTTP_200_OK)
+            return Response(data_output, status = status.HTTP_200_OK)
         else:
             return Response({'message':'No readings found'}, status = status.HTTP_200_OK)
 
@@ -142,7 +142,7 @@ class ReadingsAPIView(APIView):
     
         reading_id = request.data.get('reading_id',None)
         sensor_id = request.data.get('sensor',None)
-        type = request.data.get('type',None)
+        reading_type = request.data.get('reading_type',None)
         value = request.data.get('value',None)
         date = request.data.get('date',None)
         description = request.data.get('description',None)
@@ -151,7 +151,7 @@ class ReadingsAPIView(APIView):
         post_data = {
             'reading_id': reading_id,
             'sensor': sensor_id,
-            'type': type,
+            'reading_type': reading_type,
             'value': value,
             'date': date,
             'description': description,
@@ -247,7 +247,7 @@ def is_float(reading_value):
     try:
         float(reading_value)
         return True
-    except:
+    except ValueError:
         return False
 
 def get_value_range(values_list):
