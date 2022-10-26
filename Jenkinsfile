@@ -1,3 +1,5 @@
 node {
-  checkout scm
+  stage('Checkout files'){
+    checkout scm
+  }
 }
