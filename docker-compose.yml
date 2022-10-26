@@ -27,6 +27,7 @@ services:
       - sonarqube_data:/var/sonarqube_data
     ports:
       - "9000:9000"
+      
 volumes:
   static:
   postgres_data:
