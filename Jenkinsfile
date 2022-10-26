@@ -1,9 +1,11 @@
 pipeline{
   agent any
-  stages{
+  node {
     stage('Checkout Files') {
       checkout scm
     }
+  }
+  stages{
     stage('API') {
       agent {
         dockerfile {
