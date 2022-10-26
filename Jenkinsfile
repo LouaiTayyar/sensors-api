@@ -16,7 +16,7 @@ pipeline {
         agent any
         steps {
             sh "ls"
-            sh "docker-compose up"
+            sh "docker-compose up --build"
             echo 'Hello world!' 
         }
       }
