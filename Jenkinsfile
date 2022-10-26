@@ -19,7 +19,7 @@ pipeline {
                 filename 'Dockerfile'
                 dir 'api'
                 additionalBuildArgs  '--build-arg version=1.0.2'
-                args '-v /static:/static'
+                args '-v /static:/static -t api'
             }
         }
         steps {
