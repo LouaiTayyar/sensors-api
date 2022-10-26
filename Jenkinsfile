@@ -13,6 +13,7 @@ pipeline {
         }
       }
       stage('Build TEST'){
+        agent any
         steps {
             sh "docker-compose up"
             echo 'Hello world!' 
