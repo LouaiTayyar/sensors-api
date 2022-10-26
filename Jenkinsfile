@@ -1,12 +1,11 @@
 pipeline {
     agent none 
     stages {
-      agent {
-        stage('Checkout files'){
-          steps{
-            checkout scm
-          }
-      }
+      stage('Checkout files'){
+        agent any
+        steps{
+          checkout scm
+        }
       }
       stage('Stage 1') {
           steps {
