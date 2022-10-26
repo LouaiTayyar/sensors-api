@@ -9,7 +9,7 @@ node {
 
     stage "Build Test"
 
-    sh "ls"
+    sh "pwd"
     sh "docker-compose up sensorsapi_api"
     echo 'Hello world!' 
           
