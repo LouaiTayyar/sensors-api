@@ -8,11 +8,12 @@ pipeline{
     }
     stage('API') {
       agent {
-        dockerfile {
-            filename 'Dockerfile'
-            dir 'api'
-            args '-v static:/static -p 8000:8000'
-        }
+          dockerfile {
+              filename 'Dockerfile'
+              dir 'api'
+              additionalBuildArgs  '--entrypoint='''
+              args '-v static:/static'
+          }
       }
       steps{
         sh "echo hello"
