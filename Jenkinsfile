@@ -1,7 +1,7 @@
 pipeline {
     agent none 
     stages {
-      stage('Stage 1') {
+      stage('Hello World') {
           steps {
               echo 'Hello world!' 
           }
@@ -21,6 +21,9 @@ pipeline {
                 label 'my-defined-label'
                 args '-v /static:/static'
             }
+        }
+        steps {
+          echo 'Hello world!' 
         }
       }
     }
