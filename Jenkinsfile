@@ -15,7 +15,7 @@ pipeline {
       stage('Build TEST'){
         agent any
         steps {
-            sh "docker build ."
+            sh "docker build ./api"
             echo 'Hello world!' 
         }
       }
