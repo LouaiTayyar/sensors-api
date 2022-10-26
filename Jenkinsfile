@@ -18,7 +18,7 @@ pipeline {
             dockerfile {
                 filename 'Dockerfile'
                 dir 'api'
-                args '-v /static:/static'
+                args '-v /static:/static -t api'
             }
         }
         steps {
