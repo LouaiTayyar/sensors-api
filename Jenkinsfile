@@ -1,5 +1,5 @@
 pipeline {
-    agent any 
+    agent none 
     stages {
       stage('Hello World') {
           steps {
@@ -7,14 +7,16 @@ pipeline {
           }
       }
       stage('Checkout files'){
+        agent any
         steps{
           checkout scm
         }
       }
       stage('Build TEST'){
+        agent any
         steps {
             sh "ls"
-            sh "docker-compose up --build"
+            sh "docker-compose up sensorsapi_api"
             echo 'Hello world!' 
         }
       }
