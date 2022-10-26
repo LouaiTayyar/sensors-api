@@ -1,16 +1,13 @@
-node {
-  stage('Checkout files'){
-    checkout scm
-  }
-}
-
 pipeline {
     agent any 
     stages {
-        stage('Stage 1') {
-            steps {
-                echo 'Hello world!' 
-            }
-        }
+      stage('Checkout files'){
+        checkout scm
+      }
+      stage('Stage 1') {
+          steps {
+              echo 'Hello world!' 
+          }
+      }
     }
 }
