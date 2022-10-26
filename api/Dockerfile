@@ -8,5 +8,6 @@ RUN pip3 install -r requirements.txt
 COPY ./ /app
 WORKDIR /app
 
-CMD gunicorn SensorsAPI.wsgi:application --bind 0.0.0.0:$PORT
+COPY ./entrypoint.sh /
+ENTRYPOINT [ "sh", "/entrypoint.sh" ]
 
