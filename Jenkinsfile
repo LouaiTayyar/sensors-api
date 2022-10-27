@@ -1,4 +1,4 @@
-pipeline {
+node {
     agent any
     stages {
         stage('Verify tools') {
@@ -22,12 +22,10 @@ pipeline {
             }
         }
         stage('SonarQube Analysis'){
-            node {
-                def scannerHome = tool 'SonarScanner';
-                withSonarQubeEnv() {
-                sh "${scannerHome}/bin/sonar-scanner"
-                }
-        }
+            def scannerHome = tool 'SonarScanner';
+            withSonarQubeEnv() {
+            sh "${scannerHome}/bin/sonar-scanner"
+            }
         }
     }
 }
