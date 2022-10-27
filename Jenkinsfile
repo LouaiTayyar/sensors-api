@@ -10,7 +10,7 @@ node {
             curl --version
         '''
     }
-    stage('Prune Docker data') {
+    stage('Prune Docker Data') {
         sh 'docker system prune -a --volumes -f'
     }
     stage('Build Services') {
