@@ -1,6 +1,7 @@
-agent any
-stage('Checkout SCM'){
-    checkout scm
+node {
+    stage('Checkout SCM'){
+        checkout scm
+    }
 }
 pipeline {
     agent any
