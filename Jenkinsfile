@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Build Containers') {
             steps {
-                sh 'docker compose up -d --no-color --wait'
+                sh 'docker compose up -d --build --no-color --wait'
             }
         }
     }
