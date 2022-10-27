@@ -1,3 +1,4 @@
+agent any
 stage('Checkout SCM'){
     checkout scm
 }
