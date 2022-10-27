@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    container_name: sensorsapi_jenkins
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+    ports:
+      - "8080:8080"
+  sonarqube:
+    image: sonarqube
+    container_name: sensorsapi_sonarqube
+    volumes:
+      - sonarqube_data:/var/sonarqube_data
+    ports:
+      - "9000:9000"
+volumes:
+  jenkins_home:
+  sonarqube_data:

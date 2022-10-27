@@ -1,11 +1,11 @@
 # create heroku app
-heroku create sensors-readings
+#heroku create sensors-readings
 
 # heroku login to container registry
 heroku container:login
 
 # add postgresql database to heroku app
-heroku addons:create heroku-postgresql:hobby-dev -a sensors-readings
+#heroku addons:create heroku-postgresql:hobby-dev -a sensors-readings
 
 
 # build our heroku-ready local Docker image
