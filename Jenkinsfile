@@ -1,8 +1,8 @@
 node {
-    stage('SCM') {
+    stage('Checkout SCM Files') {
         checkout scm
     }
-    stage('Verify tools') {
+    stage('Verify Available Tools') {
         sh '''
             docker version 
             docker info 
@@ -13,7 +13,7 @@ node {
     stage('Prune Docker data') {
         sh 'docker system prune -a --volumes -f'
     }
-    stage('Build Containers') {
+    stage('Build Services') {
         sh 'docker compose up -d --no-color --wait'
     }
     stage('SonarQube Analysis') {
@@ -21,5 +21,8 @@ node {
         withSonarQubeEnv() {
         sh "${scannerHome}/bin/sonar-scanner -X"
         }
+    }
+    stage('Deploy Heroku') {
+        sh './deploy-heroku.sh'
     }
 }
