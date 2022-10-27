@@ -9,6 +9,8 @@ services:
       - jenkins_home:/var/jenkins_home
     ports:
       - "8080:8080"
+    networks:
+      - setupserver
   sonarqube:
     image: sonarqube
     container_name: sensorsapi_sonarqube
@@ -16,6 +18,10 @@ services:
       - sonarqube_data:/var/sonarqube_data
     ports:
       - "9000:9000"
+    networks:
+      - setupserver
 volumes:
   jenkins_home:
   sonarqube_data:
+networks:
+  setupserver:
