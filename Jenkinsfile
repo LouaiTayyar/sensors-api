@@ -22,7 +22,7 @@ node {
         sh "${scannerHome}/bin/sonar-scanner -X"
         }
     }
-    stage('Unit Testing') {
+    stage('Run Unit Tests') {
         sh 'docker exec -i sensorsapi_api python3 manage.py test'
     }
     stage('Deploy Heroku') {
