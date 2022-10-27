@@ -1,4 +1,4 @@
-node {
+pipeline {
     agent any
     stages {
         stage('Verify tools') {
@@ -21,7 +21,8 @@ node {
                 sh 'docker compose up -d --no-color --wait'
             }
         }
-        stage('SonarQube Analysis'){
+        stage('SonarQube Analysis') {
+            agent none
             def scannerHome = tool 'SonarScanner';
             withSonarQubeEnv() {
             sh "${scannerHome}/bin/sonar-scanner"
