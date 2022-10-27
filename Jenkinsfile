@@ -16,11 +16,6 @@ pipeline {
                 sh 'docker system prune -a --volumes -f'
             }
         }
-        stage('Build Required Images') {
-            steps {
-                sh 'docker compose pull'
-            }
-        }
         stage('Build Required Services') {
             steps {
                 sh 'docker compose build'
