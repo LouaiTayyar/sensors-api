@@ -1,11 +1,11 @@
+stage('Checkout SCM'){
+    steps {
+        checkout scm
+    }
+}
 pipeline {
     agent any
     stages {
-        stage('Checkout SCM'){
-            steps {
-                checkout scm
-            }
-        }
         stage('Verify tools') {
             steps {
                 sh '''
