@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('verify tooling') {
+        stage('Verify tools') {
             steps {
                 sh '''
                     docker version 
@@ -16,10 +16,9 @@ pipeline {
                 sh 'docker system prune -a --volumes -f'
             }
         }
-        stage('Starting containers') {
+        stage('Setup SonarQube') {
             steps {
-                sh 'docker compose up -d '
-                sh 'docker compose ps'
+                sh 'docker compose up -d sonarqube '
             }
         }
     }
