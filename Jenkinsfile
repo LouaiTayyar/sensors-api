@@ -18,7 +18,22 @@ pipeline {
         }
         stage('Build Containers') {
             steps {
-                sh 'docker compose up -d --build --no-color --wait'
+                sh 'docker compose up -d --no-color --wait'
+            }
+        }
+        stage('SonarQube Analysis'){
+            steps{
+                node {
+                    stage('SCM') {
+                        checkout scm
+                    }
+                    stage('SonarQube Analysis') {
+                        def scannerHome = tool 'SonarScanner';
+                        withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                        }
+                    }
+                }
             }
         }
     }
