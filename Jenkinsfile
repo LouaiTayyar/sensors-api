@@ -16,14 +16,9 @@ pipeline {
                 sh 'docker system prune -a --volumes -f'
             }
         }
-        stage('Build Required Services') {
+        stage('Build Containers') {
             steps {
-                sh 'docker compose build'
-            }
-        }
-        stage('Setup SonarQube') {
-            steps {
-                sh 'docker compose run sonarqube'
+                sh 'docker compose up -d --no-color --wait'
             }
         }
     }
