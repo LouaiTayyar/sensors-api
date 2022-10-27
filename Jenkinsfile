@@ -23,12 +23,6 @@ node {
         }
     }
     stage('Deploy Heroku') {
-        sh '''
-        (
-        echo "$HEROKU_CREDENTIALS_EMAIL"
-        echo "$HEROKU_CREDENTIALS_PASSWORD"
-        ) | heroku login
-        ./deploy-heroku.sh
-        '''
+        sh './deploy-heroku.sh'
     }
 }
