@@ -1,6 +1,9 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout SCM'){
+            checkout scm
+        }
         stage('Verify tools') {
             steps {
                 sh '''
