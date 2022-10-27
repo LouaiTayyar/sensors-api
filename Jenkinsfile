@@ -23,7 +23,7 @@ node {
         }
     }
     stage('Unit Testing') {
-        sh 'docker exec -it sensorsapi_api python3 manage.py test'
+        sh 'docker exec -i sensorsapi_api python3 manage.py test'
     }
     stage('Deploy Heroku') {
         sh './deploy-heroku.sh'
