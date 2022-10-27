@@ -1,14 +1,26 @@
-node {
-    stage "Hello World"
-
-    echo 'Hello world!' 
-
-    stage "checkout"
-
-    checkout scm
-
-    stage "Build Test"
-
-    sh "docker-compose up"
-          
+pipeline {
+    agent any
+    stages {
+        stage('verify tooling') {
+            steps {
+                sh '''
+                    docker version 
+                    docker info 
+                    docker compose version
+                    curl --version
+                    jq --version
+                '''
+            }
+        }
+        stage('Prune Docker data') {
+            steps {
+                sh 'docker system prune -a --volumes -f'
+            }
+        }
+        stage('Starting containers') {
+            steps {
+                sh 'docker compose up -d '
+                sh 'docker compose ps'
+            }
+        }
 }
