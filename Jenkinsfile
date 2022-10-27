@@ -1,4 +1,7 @@
 node {
+    stage('SCM') {
+        checkout scm
+    }
     stage('Verify tools') {
         sh '''
             docker version 
