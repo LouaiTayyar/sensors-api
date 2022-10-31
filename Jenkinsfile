@@ -14,7 +14,7 @@ node {
         sh 'docker system prune -a --volumes -f'
     }
     stage('Build Services') {
-        sh 'docker compose up -d --no-color --wait'
+        sh 'docker compose up -d'
     }
     stage('SonarQube Analysis') {
         def scannerHome = tool 'SonarScanner';
