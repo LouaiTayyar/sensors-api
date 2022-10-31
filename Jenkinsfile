@@ -4,7 +4,6 @@ node {
     }
     stage('Verify Available Tools') {
         sh '''
-            chmod 777 /var/run/docker.sock
             docker version 
             docker info 
             docker compose version
