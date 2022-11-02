@@ -16,12 +16,6 @@ node {
     stage('Build Services') {
         sh 'docker compose up -d --no-color --wait'
     }
-    stage('SonarQube Analysis') {
-        def scannerHome = tool 'SonarScanner';
-        withSonarQubeEnv() {
-        sh "${scannerHome}/bin/sonar-scanner -X"
-        }
-    }
     stage('Run Unit Tests') {
         sh 'docker exec -i sensorsapi_api python3 manage.py test'
     }
