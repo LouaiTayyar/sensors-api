@@ -16,9 +16,9 @@ services:
       SONAR_JDBC_USERNAME: sonartest
       SONAR_JDBC_PASSWORD: sonartest
     volumes:
-      - sonarqube_data:/opt/SonarQube/data
-      - sonarqube_extensions:/opt/SonarQube/extensions
-      - sonarqube_logs:/opt/SonarQube/logs
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
     ports:
       - "9000:9000"
 volumes:
