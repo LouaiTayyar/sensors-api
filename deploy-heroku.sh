@@ -5,6 +5,10 @@ docker login --username=louaitayyar@outlook.com --password=0b6f1966-8fb7-48bf-91
 docker build -t registry.heroku.com/sensors-readings/web .
 docker push registry.heroku.com/sensors-readings/web 
 heroku container:release web -a sensors-readings
+heroku container:release web -a sensors-readings
+heroku container:release web -a sensors-readings
+heroku container:release web -a sensors-readings
+
 # heroku login to container registry
 #aaaaa
 #aaaaaa
