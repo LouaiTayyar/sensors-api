@@ -10,12 +10,19 @@ services:
     ports:
       - "8080:8080"
   sonarqube:
-    image: sonarqube
-    container_name: sensorsapi_sonarqube
+    image: SonarQube:community
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonartest
+      SONAR_JDBC_PASSWORD: sonartest
     volumes:
-      - sonarqube_data:/var/sonarqube_data
+      - sonarqube_data:/opt/SonarQube/data
+      - sonarqube_extensions:/opt/SonarQube/extensions
+      - sonarqube_logs:/opt/SonarQube/logs
     ports:
       - "9000:9000"
 volumes:
   jenkins_home:
   sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:

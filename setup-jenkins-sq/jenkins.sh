@@ -5,3 +5,4 @@ curl https://get.docker.com/ > dockerinstall && chmod 777 dockerinstall && ./doc
 sudo chmod 666 /var/run/docker.sock
 curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
