@@ -1,4 +1,7 @@
-# create heroku app
+# This is a script to help manually deploy the API to heroku  
+
+
+#create heroku app
 #heroku create sensors-readings
 heroku container:login
 docker login --username=louaitayyar@outlook.com --password=0b6f1966-8fb7-48bf-9118-5f44067dd66e registry.heroku.com
