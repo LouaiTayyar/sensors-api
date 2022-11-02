@@ -2,7 +2,7 @@ node {
     stage('Checkout SCM Files') {
         checkout scm
     }
-    stage('SonarQube analysis') {
+    stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarScanner';
     withSonarQubeEnv('SonarCloud') { // If you have configured more than one global server connection, you can specify its name
       sh "${scannerHome}/bin/sonar-scanner"
