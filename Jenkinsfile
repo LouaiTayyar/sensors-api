@@ -13,8 +13,11 @@ node {
     stage('Prune Docker Data') {
         sh 'docker system prune -a --volumes -f'
     }
-    stage('Build Services') {
-        sh 'docker compose up -d --no-color --wait'
+    stage('Build Database') {
+        sh 'docker compose up -d db --no-color --wait'
+    }
+    stage('Deploy API') {
+        sh 'docker compose up -d db --no-color --wait'
     }
     stage('Run Unit Tests') {
         sh 'docker exec -i sensorsapi_api python3 manage.py test'
