@@ -19,7 +19,4 @@ node {
     stage('Run Unit Tests') {
         sh 'docker exec -i sensorsapi_api python3 manage.py test'
     }
-    stage('Deploy Heroku') {
-        sh './deploy-heroku.sh'
-    }
 }
