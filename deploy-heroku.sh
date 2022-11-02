@@ -6,7 +6,7 @@ docker build -t registry.heroku.com/sensors-readings/web .
 docker push registry.heroku.com/sensors-readings/web 
 heroku container:release web -a sensors-readings
 # heroku login to container registry
-
+#aaaaa
 # add postgresql database to heroku app
 #heroku addons:create heroku-postgresql:hobby-dev -a sensors-readings
 
