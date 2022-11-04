@@ -23,7 +23,12 @@ node {
         sh 'docker compose up -d db --no-color --wait'
     }
     stage('Deploy API') {
-        sh 'docker compose up -d api --no-color --wait'
+        sh '''
+            docker compose up -d api --build --no-color --wait
+            docker exec -i sensorsapi_api python3 manage.py collectstatic --noinput
+            docker exec -i sensorsapi_api python3 manage.py makemigrations --noinput
+            docker exec -i sensorsapi_api python3 manage.py migrate --noinput
+        '''
     }
     stage('Run Unit Tests') {
         sh 'docker exec -i sensorsapi_api python3 manage.py test'
