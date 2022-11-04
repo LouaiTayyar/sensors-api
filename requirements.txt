@@ -2,9 +2,10 @@ Django
 djangorestframework
 django-rest-swagger
 gunicorn
-psycopg2
 psycopg2-binary
 uritemplate
 pyyaml
 whitenoise
 dj-database-url
+gdal
+postgis
