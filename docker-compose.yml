@@ -13,7 +13,7 @@ services:
     depends_on:
       - db
   db:
-    image: postgis/postgis:15-3.3-alpine
+    image: postgres:15.0-alpine
     container_name: sensorsapi_db
     volumes:
       - postgres_data:/data
