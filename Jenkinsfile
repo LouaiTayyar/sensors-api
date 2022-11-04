@@ -16,9 +16,6 @@ node {
             curl --version
         '''
     }
-    stage('Prune Docker Data') {
-        sh 'docker system prune -a --volumes -f'
-    }
     stage('Build Database') {
         sh 'docker compose up -d db --no-color --wait'
     }
